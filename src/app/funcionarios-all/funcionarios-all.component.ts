@@ -1,34 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { FuncionaryCrudComponent } from './funcionary-crud/funcionary-crud.component';
-import { FuncionaryService } from './services/funcionary.service';
+import { Funcionary } from '../model/Funcionary.model';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { CoreService } from './core/core.service';
-import { Funcionary } from './model/Funcionary.model';
+import { MatDialog } from '@angular/material/dialog';
+import { FuncionaryService } from '../services/funcionary.service';
+import { CoreService } from '../core/core.service';
 import { HttpClient } from '@angular/common/http';
-import { ArchivosComponent } from './archivos/archivos.component';
-
-interface CodigoToPalabraMapping {
-  [codigo: string]: string;
-}
+import { FuncionaryCrudComponent } from '../funcionary-crud/funcionary-crud.component';
+import { ArchivosComponent } from '../archivos/archivos.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-funcionarios-all',
+  templateUrl: './funcionarios-all.component.html',
+  styleUrls: ['./funcionarios-all.component.scss']
 })
-export class AppComponent implements OnInit {
-
+export class FuncionariosAllComponent {
   title(title: any) {
     throw new Error('Method not implemented.');
   }
 
   selectedFuncionario: any; // Funcionario seleccionado
   showDetails = false;
+  visibility = true;
 
-  displayedColumns: string[] = ['id_funcionary', 'name', 'surnamefather','surnamemother', 'dni', 'phonenumber', 'rank', 'department', 'address', 'email', 'estado', 'action'];
+  displayedColumns: string[] = ['id_funcionary', 'name', 'surnamefather','surnamemother', 'dni', 'phonenumber', 'rank', 'department', 'address', 'email', 'estado', 'acciones', 'detalles'];
   dataSource!: MatTableDataSource<Funcionary>;
 
   activeFilter: string = '';
@@ -65,6 +61,7 @@ export class AppComponent implements OnInit {
     
         this.funcionaryData = res; // Asigna los datos
         this.dataSource = new MatTableDataSource(res);
+        this.visibility = false;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -74,49 +71,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  getFuncionaryListActive() {
-    this._fbService.getFuncionaryList().subscribe({
-      next: (res: Funcionary[]) => {
-        // Filtrar la lista por el campo "estado" igual a "A"
-        const filteredData = res.filter(item => item.estado === 'A');
-  
-        // Convierte el campo id_funcionary a números
-        filteredData.forEach((item) => {
-          item.id_funcionary = +item.id_funcionary;
-        });
-  
-        this.funcionaryData = filteredData; // Asigna los datos filtrados
-        this.dataSource = new MatTableDataSource(filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
-
-  getFuncionaryListInactive() {
-    this._fbService.getFuncionaryList().subscribe({
-      next: (res: Funcionary[]) => {
-        // Filtrar la lista por el campo "estado" igual a "A"
-        const filteredData = res.filter(item => item.estado === 'I');
-  
-        // Convierte el campo id_funcionary a números
-        filteredData.forEach((item) => {
-          item.id_funcionary = +item.id_funcionary;
-        });
-  
-        this.funcionaryData = filteredData; // Asigna los datos filtrados
-        this.dataSource = new MatTableDataSource(filteredData);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
-  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -150,6 +104,22 @@ export class AppComponent implements OnInit {
       },
     });
   }
+
+  reactivateFuncionario(id: number) {
+    this._fbService.reactiveFuncionary(id).subscribe({
+      next: (res) => {
+        // Aquí puedes manejar la respuesta si es necesario
+        console.log('Funcionario reactivado exitosamente', res);
+        // Después de reactivar, puedes actualizar la lista de funcionarios activos si es necesario
+        this.getFuncionaryList();
+      },
+      error: (err) => {
+        console.error('Error al reactivar funcionario', err);
+        // Maneja el error de acuerdo a tus necesidades
+      }
+    });
+  }
+
 
   // Método para mostrar los detalles del funcionario
   showFuncionarioDetails(funcionario: any) {

@@ -1,7 +1,8 @@
 export interface Funcionary {
     id_funcionary: number;
     name: string;
-    surname: string;
+    surnamefather: string;
+    surnamemother: string;
     dni: string;
     phonenumber: string;
     rank: string;

@@ -12,9 +12,17 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-                <mat-label>Apellidos</mat-label>
-                <input matInput type="text" placeholder="Escriba sus Apellidos Completos" formControlName="surname">
-                <mat-error *ngIf="funForm.get('surname')?.hasError('required')">Obligatorio</mat-error>
+                <mat-label>Apellido Paterno</mat-label>
+                <input matInput type="text" placeholder="Escriba sus Apellidos Completos"
+                    formControlName="surnamefather">
+                <mat-error *ngIf="funForm.get('surnamefather')?.hasError('required')">Obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Apellido Materno</mat-label>
+                <input matInput type="text" placeholder="Escriba sus Apellidos Completos"
+                    formControlName="surnamemother">
+                <mat-error *ngIf="funForm.get('surnamemother')?.hasError('required')">Obligatorio</mat-error>
             </mat-form-field>
 
         </div>
@@ -22,34 +30,35 @@
         <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>DNI</mat-label>
-                <input matInput type="text" pattern="[0-9]*" maxlength="8" placeholder="Escriba su DNI" formControlName="dni">
+                <input matInput type="text" pattern="[0-9]*" maxlength="8" placeholder="Escriba su DNI"
+                    formControlName="dni">
                 <mat-error *ngIf="funForm.get('dni')?.hasError('required')">Obligatorio</mat-error>
-    <mat-error *ngIf="funForm.get('dni')?.hasError('pattern')">Ingresar DNI Correcto</mat-error>
+                <mat-error *ngIf="funForm.get('dni')?.hasError('pattern')">Ingresar DNI Correcto</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label>Teléfono</mat-label>
-                <input matInput type="text" pattern="[0-9]*" maxlength="9" placeholder="Escriba Teléfono" formControlName="phonenumber">
+                <input matInput type="text" pattern="[0-9]*" maxlength="9" placeholder="Escriba Teléfono"
+                    formControlName="phonenumber">
                 <mat-error *ngIf="funForm.get('phonenumber')?.hasError('required')">Obligatorio</mat-error>
-    <mat-error *ngIf="funForm.get('phonenumber')?.hasError('pattern')">Ingresar Teléfono Correcto</mat-error>
+                <mat-error *ngIf="funForm.get('phonenumber')?.hasError('pattern')">Ingresar Teléfono
+                    Correcto</mat-error>
             </mat-form-field>
-        </div>
-
-        <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Rol</mat-label>
                 <input matInput type="text" placeholder="Escriba Aquí" formControlName="rank">
                 <mat-error *ngIf="funForm.get('rank')?.hasError('required')">Obligatorio</mat-error>
             </mat-form-field>
+        </div>
+
+        <div class="row">
 
             <mat-form-field appearance="outline">
                 <mat-label>Departamento</mat-label>
                 <input matInput type="text" placeholder="Escriba Aquí" formControlName="department">
                 <mat-error *ngIf="funForm.get('department')?.hasError('required')">Obligatorio</mat-error>
             </mat-form-field>
-        </div>
 
-        <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Dirección</mat-label>
                 <input matInput type="text" placeholder="Escriba Aquí" formControlName="address">
@@ -60,13 +69,15 @@
                 <mat-label>Correo Electrónico</mat-label>
                 <input matInput type="email" placeholder="Escriba Aquí" formControlName="email">
                 <mat-error *ngIf="funForm.get('email')?.hasError('required')">Obligatorio</mat-error>
-                <mat-error *ngIf="funForm.get('email')?.hasError('email')">El formato del correo electrónico no es válido</mat-error>
+                <mat-error *ngIf="funForm.get('email')?.hasError('email')">El formato del correo electrónico no es
+                    válido</mat-error>
             </mat-form-field>
         </div>
     </div>
 
     <div mat-dialog-actions class="action">
         <button mat-raised-button color="warn" type="button" [mat-dialog-close]="false"> Cancelar</button>
-        <button mat-raised-button color="primary" [disabled]="funForm.invalid" type="submit">{{data ? 'Update': 'Save'}}</button>
+        <button mat-raised-button color="primary" [disabled]="funForm.invalid" type="submit">{{data ? 'Update':
+            'Save'}}</button>
     </div>
 </form>

@@ -16,13 +16,15 @@ export class FuncionaryCrudComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _fbService: FuncionaryService, private _dialogRef: MatDialogRef<FuncionaryCrudComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private _coreService: CoreService) {
     this.funForm = this._fb.group({
       name: ['', Validators.required],
-      surname: ['', Validators.required],
+      surnamefather: ['', Validators.required],
+      surnamemother: ['', Validators.required],
       dni: ['', [Validators.required, Validators.maxLength(8)]],
       phonenumber: ['', [Validators.required, Validators.maxLength(9)]],
       rank: ['', Validators.required],
       department: ['', Validators.required],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      estado: ['A'],
     });
   }
 

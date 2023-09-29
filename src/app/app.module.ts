@@ -22,11 +22,19 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FuncionaryCrudComponent } from './funcionary-crud/funcionary-crud.component';
 import { MatCardModule } from '@angular/material/card';
+import { ArchivosComponent } from './archivos/archivos.component';
+import { FuncionariosActivosComponent } from './funcionarios-activos/funcionarios-activos.component';
+import { FuncionariosInactivosComponent } from './funcionarios-inactivos/funcionarios-inactivos.component';
+import { FuncionariosAllComponent } from './funcionarios-all/funcionarios-all.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FuncionaryCrudComponent
+    FuncionaryCrudComponent,
+    ArchivosComponent,
+    FuncionariosActivosComponent,
+    FuncionariosInactivosComponent,
+    FuncionariosAllComponent
   ],
   imports: [
     BrowserModule,
